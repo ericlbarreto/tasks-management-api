@@ -14,7 +14,7 @@ import {
 import { TaskService } from './task.service';
 import { CreateTaskDto } from './dto/create-task.dto';
 import { UpdateTaskDto } from './dto/update-task.dto';
-import { Task, TaskStatus } from './entities/task.entity';
+import { Task, TaskPriority } from './entities/task.entity';
 
 @Controller('tasks')
 export class TaskController {
@@ -27,8 +27,10 @@ export class TaskController {
   }
 
   @Get()
-  async findAllTasks(@Query('status') status?: TaskStatus): Promise<Task[]> {
-    return await this.taskService.findAllTasks(status);
+  async findAllTasks(
+    @Query('priority') priority?: TaskPriority,
+  ): Promise<Task[]> {
+    return await this.taskService.findAllTasks(priority);
   }
 
   @Get(':id')

@@ -3,7 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { CreateTaskDto } from './dto/create-task.dto';
 import { UpdateTaskDto } from './dto/update-task.dto';
-import { Task, TaskStatus } from './entities/task.entity';
+import { Task, TaskPriority } from './entities/task.entity';
 
 @Injectable()
 export class TaskService {
@@ -18,11 +18,11 @@ export class TaskService {
     return await this.taskRepository.save(task);
   }
 
-  async findAllTasks(status?: TaskStatus): Promise<Task[]> {
+  async findAllTasks(priority?: TaskPriority): Promise<Task[]> {
     const whereCondition: Record<string, any> = {};
 
-    if (status) {
-      whereCondition.status = status;
+    if (priority) {
+      whereCondition.priority = priority;
     }
 
     return await this.taskRepository.find({ where: whereCondition });

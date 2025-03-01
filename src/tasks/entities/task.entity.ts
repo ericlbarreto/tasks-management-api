@@ -3,7 +3,13 @@ import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
 export enum TaskStatus {
   PENDING = 'pending',
   IN_PROGRESS = 'in_progress',
-  COMPLETED = 'completed',
+  DONE = 'done',
+}
+
+export enum TaskPriority {
+  LOW = 'low',
+  MEDIUM = 'medium',
+  HIGH = 'high',
 }
 
 @Entity('tasks')
@@ -24,8 +30,12 @@ export class Task {
   })
   status: TaskStatus;
 
-  @Column({ nullable: true })
-  dueDate?: Date;
+  @Column({
+    type: 'enum',
+    enum: TaskPriority,
+    default: TaskPriority.MEDIUM,
+  })
+  priority: TaskPriority;
 
   @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
   createdAt: Date;

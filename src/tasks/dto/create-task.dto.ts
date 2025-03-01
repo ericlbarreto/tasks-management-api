@@ -1,5 +1,5 @@
-import { IsString, IsOptional, IsEnum, IsDateString } from 'class-validator';
-import { TaskStatus } from '../entities/task.entity';
+import { IsString, IsOptional, IsEnum } from 'class-validator';
+import { TaskPriority, TaskStatus } from '../entities/task.entity';
 
 export class CreateTaskDto {
   @IsString()
@@ -12,7 +12,6 @@ export class CreateTaskDto {
   @IsEnum(TaskStatus)
   status: TaskStatus;
 
-  @IsDateString()
-  @IsOptional()
-  dueDate?: string;
+  @IsEnum(TaskPriority)
+  priority: TaskPriority;
 }
